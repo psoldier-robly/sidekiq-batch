@@ -229,7 +229,7 @@ module Sidekiq
         if callback_batch
           # Extract opts from cb_args or use current
           # Pass in stored event as callback finalize is processed on complete event
-          cb_opts = callback_args.first&.at(2) || opts
+          cb_opts = callback_args.first.try(:at, 2) || opts
 
           Sidekiq.logger.debug {"Run callback batch bid: #{bid} event: #{event} args: #{callback_args.inspect}"}
           # Finalize now
